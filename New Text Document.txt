@@ -1,0 +1,53 @@
+https://amritoo.hashnode.dev/a-beginners-guide-to-assembly-language-using-emu8086
+
+What is assembly language
+Assembly language is a low-level programming language that is very fast, uses fewer resources compared to higher-level languages, and can be executed by translating directly to machine language via an assembler. According to Wikipedia:
+
+In computer programming, assembly language is any low-level programming language with a very strong correspondence between the instructions in the language and the architecture's machine code instructions.
+
+We know that a processor (also known as CPU - Central Processing Unit) executes all types of operations, effectively working as the brain of a computer. However, it only recognizes strings of 0's and 1's. As you can imagine, it's cumbersome to code in machine language. So, the low-level assembly language was designed for a specific family of processors that represents various instructions in symbolic code which is far easier to understand for a human being. But, as you can also guess, it's difficult and somewhat inconvenient to develop in assembly language.
+
+So, why should we learn assembly language in today's world?
+
+Well, you can think of the following points to decide whether to learn it or not.
+
+Enhance your skill set.
+
+Learn the fastest language aside from machine language.
+
+Embed assembly language in a higher-level language to use features unsupported by the higher-level language or for performance reasons.
+
+Fill in the knowledge gap for understanding how the higher-level languages came to be.
+
+Assemblers and editors
+Assemblers are programs that translate assembly language code to its equivalent machine language code. There are many assemblers targeting various microprocessors in the market today like MASM, TASM, NASM, etc. For a list of different assemblers, visit this Wikipedia page.
+
+Code editors are software in which you can write the code, modify and save it to a file. Some editors that support assembly language are VS code, DOSBox, emu8086, and so on. Online assemblers are also available, like the popular online editor Ideone. We will use emu8086, which comes with the environment needed to start our journey in assembly language.
+
+Code structure
+We can simply write the assembly code and emulate it in emu8086, and it'll run. However, without calling the exit statements or halt instruction, the program will continue executing the next instruction in memory until it is halted by OS or emu8086 itself. The assembly code is saved in a .asm file type.
+
+There are also some good practices like defining the model and stack memory size at the very beginning. For small model, define data and code segment after the stack. The code segment contains the code to execute. In the example structure given here, I have created a main procedure (also called function or methods in other programming languages), in which the code execution starts. At the end of it, I have called a specific predefined statement with interrupt to indicate the code has finished executing.
+
+
+COPY
+
+COPY
+.model small
+.stack 100H
+
+; Data segment
+.data   ; if there is nothing in the data segment, you can omit this line.
+
+; Code segment
+.code
+
+main PROC
+    ; Write your code here
+
+    exit:
+    MOV AH, 4CH
+    INT 21H
+    main ENDP
+END main
+The first line, .model small, defines the memory model to use. Some recognized memory models are tiny, small, medium, compact, large, and so on. The small memory model supports one data segment and one code segment that are usually enough to write small programs. The following line .stack 100H defines the stack size in hexadecimal numbers. The equivalent decimal number is 256. The lines starting with, or part of the line after, ; are comments that the assembler ignores.
